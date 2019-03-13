@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zbjdl.common.log.repository.CommonBizLogRepository">
+
+	<resultMap type="CommonBizLog" id="commonBizLogMap">
+		<id property="id" column="ID" />
+		<id property="host" column="HOST" />
+		<id property="application" column="APPLICATION" />
+		<id property="loggerName" column="LOGGER_NAME" />
+		<id property="threadName" column="THREAD_NAME" />
+		<id property="guid" column="GUID" />
+		<id property="createTime" column="CREATE_TIME" />
+		<id property="logContent" column="LOG_CONTENT" />
+	</resultMap>
+
+	<insert id="save" parameterType="CommonBizLog" keyProperty="id"
+		useGeneratedKeys="true">
+	INSERT INTO COMMON_BIZ_LOG
+	
+	(
+		HOST,
+		APPLICATION,
+		LOGGER_NAME,
+		THREAD_NAME,
+		GUID,
+		CREATE_TIME,
+		LOG_CONTENT
+	) VALUES (
+		#{host,jdbcType=VARCHAR},
+		#{application,jdbcType=VARCHAR},
+		#{loggerName,jdbcType=VARCHAR},
+		#{threadName,jdbcType=VARCHAR},
+		#{guid,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{logContent,jdbcType=VARCHAR}
+	)
+	</insert>
+	<insert id="batchSave" parameterType="java.util.List">
+	INSERT INTO COMMON_BIZ_LOG
+	(
+		HOST,
+		APPLICATION,
+		LOGGER_NAME,
+		THREAD_NAME,
+		GUID,
+		CREATE_TIME,
+		LOG_CONTENT
+	) VALUES 
+	    <foreach collection="list" item="item" index="index" separator="," >  
+	(
+		#{item.host,jdbcType=VARCHAR},
+		#{item.application,jdbcType=VARCHAR},
+		#{item.loggerName,jdbcType=VARCHAR},
+		#{item.threadName,jdbcType=VARCHAR},
+		#{item.guid,jdbcType=VARCHAR},
+		#{item.createTime,jdbcType=TIMESTAMP},
+		#{item.logContent,jdbcType=VARCHAR}
+	)
+	    </foreach>  
+	</insert>
+</mapper>

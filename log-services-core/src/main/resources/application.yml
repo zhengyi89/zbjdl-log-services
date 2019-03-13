@@ -1,0 +1,52 @@
+spring:
+    profiles:
+        active: default
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://mysqldb.zbjdl.in/zbjdl_log?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+        username: root
+        password: wK=QwJmR<592
+        validation-query: select 1 from dual
+        test-on-borrow: true
+
+endpoints:
+    jmx:
+        enabled: false
+mybatis:
+    config: classpath:mybatis-config.xml
+
+
+
+zbjdl:
+    dubbo:
+        app: log-services
+        registry_address: registry.zbjdl.in:2181
+        service_group: none
+        service_version: none
+        service-timeout: 40000
+
+
+server:
+    contextPath: /log-services
+    port: 8082
+
+---
+
+spring:
+    profiles: development
+
+
+
+---
+spring:
+    profiles: production
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://mysqldb.zbjdl.in/zbjdl_log?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+        username: root
+        password: qr0?mFD7glkr
+        validation-query: select 1 from dual
+        test-on-borrow: true
+
+server:
+    port: 9003
